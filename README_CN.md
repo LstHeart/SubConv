@@ -49,6 +49,14 @@
 - 前端：`cd mainpage && bun install && bun run dev`
 - 文档：`cd docs && bun install && bun run dev`
 
+## 个人分支容器镜像
+
+`personal` 分支推送后，GitHub Actions 会构建并发布 `ghcr.io/lstheart/subconv:personal`（支持 amd64 和 arm64）。新建的容器包可能需要在 GitHub 包设置中设为公开，才能在服务器上免登录拉取。首次发布前请等待 Actions 构建完成。
+
+```bash
+docker pull ghcr.io/lstheart/subconv:personal
+```
+
 ## 说明
 
 **Clash Core from Dreamacro** (原版Clash) 已经不再支持了，建议使用 [mihomo](https://github.com/MetaCubeX/mihomo)

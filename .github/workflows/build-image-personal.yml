@@ -1,0 +1,48 @@
+name: Build personal container image
+
+on:
+  push:
+    branches:
+      - personal
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: personal-container-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-push:
+    if: github.repository == 'LstHeart/SubConv' && github.ref == 'refs/heads/personal'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/lstheart/subconv:personal
+          cache-from: type=gha,scope=personal
+          cache-to: type=gha,mode=max,scope=personal

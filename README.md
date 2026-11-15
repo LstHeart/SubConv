@@ -50,6 +50,14 @@ Local commands (requires [uv](https://docs.astral.sh/uv/) and [bun](https://bun.
 - Frontend: `cd mainpage && bun install && bun run dev`
 - Docs: `cd docs && bun install && bun run dev`
 
+## Personal branch container image
+
+Pushes to `personal` build and publish `ghcr.io/lstheart/subconv:personal` for amd64 and arm64. A newly created GitHub container package may need to be made public in its package settings before it can be pulled without signing in. Wait for the Actions build to finish before the first pull.
+
+```bash
+docker pull ghcr.io/lstheart/subconv:personal
+```
+
 ## P.S
 
 **Clash Core from Dreamacro** (original Clash core) is no longer supported. It's recommended to use [mihomo](https://github.com/MetaCubeX/mihomo) instead.

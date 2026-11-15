@@ -45,6 +45,17 @@ def test_ws_tls_full_config(registry):
     assert "User-Agent" in result["ws-opts"]["headers"]
 
 
+@pytest.mark.parametrize("value,expected", [("1", True), ("true", True), ("0", False), ("false", False), ("yes", False)])
+def test_allow_insecure_is_preserved(registry, value, expected):
+    result = parse_vless(f"vless://{UUID}@example.com:443?security=tls&allowInsecure={value}", registry).to_dict()
+    assert result["skip-cert-verify"] is expected
+
+
+def test_allow_insecure_absent_keeps_default_verification(registry):
+    result = parse_vless(f"vless://{UUID}@example.com:443?security=tls", registry).to_dict()
+    assert "skip-cert-verify" not in result
+
+
 def test_reality_config(registry):
     line = (
         f"vless://{UUID}@vless.example.com:443?security=reality&pbk=PUBKEY123"

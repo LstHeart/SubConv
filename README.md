@@ -19,7 +19,7 @@ Outbound requests reject private networks by default, including redirect targets
 - Support Clash config and V2ray format base64 links (i.e. the original subscription does not have to be Clash)
   - Share-link parsing follows mihomo, including Hysteria2 port hopping/Realm, Reality ML-KEM options, and XHTTP extra settings.
   - HTTP/SOCKS credentials accept plaintext or Base64; URL credentials decode percent escapes according to mihomo's rules, node names preserve literal `+`, and VMess AEAD honors `packetEncoding` and uses the first `encryption` value when repeated, matching mihomo.
-  - Hysteria/Trojan TLS flags follow Go's boolean parsing: `t`/`T` are true; invalid values such as `yes` are false.
+  - VLESS `allowInsecure` is preserved as `skip-cert-verify`. Hysteria/Trojan TLS flags follow Go's boolean parsing: `t`/`T` are true; invalid values such as `yes` are false.
   - Invalid share links fail conversion with a clear error instead of silently dropping nodes; blank lines and `#` metadata comments are ignored. YAML anchors and merge keys are supported. Each parsed subscription is limited to 10,000 proxies and 10 MiB of expanded scalar fields.
 - A Web-UI (thanks to [@Musanico](https://github.com/musanico))
 - Rules based on ACL

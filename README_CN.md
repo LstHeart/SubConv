@@ -18,7 +18,7 @@
 - 支持Clash配置和V2ray格式的base64链接（即原始订阅不一定是Clash）
   - 分享链接解析对齐 mihomo，包括 Hysteria2 端口跳跃/Realm、Reality ML-KEM 选项和 XHTTP extra 配置。
   - HTTP/SOCKS 认证支持明文和 Base64；URL 凭据按 mihomo 规则处理百分号转义，节点名称保留原始 `+`，VMess AEAD 遵循 `packetEncoding`，重复的 `encryption` 参数取第一个值，与 mihomo 一致。
-  - Hysteria/Trojan 的 TLS 布尔参数遵循 Go 的解析规则：`t`/`T` 为真，`yes` 等无效值按假处理。
+  - VLESS 的 `allowInsecure` 会转换为 `skip-cert-verify`。Hysteria/Trojan 的 TLS 布尔参数遵循 Go 的解析规则：`t`/`T` 为真，`yes` 等无效值按假处理。
   - 无效分享链接会明确报错并中止转换，不会静默丢弃节点；空行和 `#` 元数据注释会被忽略。支持 YAML anchor、alias 和合并键；每份解析后的订阅最多包含 10,000 个代理，展开后的标量字段合计最多为 10 MiB。
 - 自带Web-UI (感谢 [@Musanico](https://github.com/musanico))
 - 大体基于 ACL 的规则

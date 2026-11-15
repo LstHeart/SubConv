@@ -73,6 +73,10 @@ def parse_vless(line: str, registry: NameRegistry) -> VlessProxy:
     query = parse_query(url.query)
     proxy = handle_v_share_link(url, registry, "vless", query)
 
+    allow_insecure = _query_first(query, "allowInsecure")
+    if allow_insecure:
+        proxy["skip_cert_verify"] = parse_optional_bool(allow_insecure) or False
+
     flow = _query_first(query, "flow")
     if flow:
         proxy["flow"] = flow.lower()
